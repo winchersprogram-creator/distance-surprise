@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Маленький сюрприз ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- фонові шари: зірки, частинки, серця -->
+<canvas id="bg-canvas"></canvas>
+<div id="hearts-rain" class="hearts-rain" aria-hidden="true"></div>
+
+<div id="app">
+
+  <!-- ЕКРАН 1 — вступ -->
+  <section class="screen" id="screen-1" data-active="true">
+    <div class="dot" id="intro-dot"></div>
+
+    <svg class="heart-svg intro-heart" id="intro-heart" viewBox="0 0 100 90" width="70" height="63">
+      <path d="M50 85 C20 62, 2 42, 2 24 C2 8, 15 -2, 30 3 C40 6, 47 15, 50 22 C53 15, 60 6, 70 3 C85 -2, 98 8, 98 24 C98 42, 80 62, 50 85 Z"/>
+    </svg>
+
+    <p class="reveal-text" id="text-1-1">У мене є для тебе маленький сюрприз ❤️</p>
+
+    <button class="btn btn-primary reveal-btn" id="btn-start">Почати</button>
+  </section>
+
+  <!-- ЕКРАН 2 — запит локації -->
+  <section class="screen" id="screen-2">
+    <p class="reveal-text" id="text-2-1">Для цього мені потрібна одна маленька допомога...</p>
+    <p class="reveal-text" id="text-2-2">Поділися своїм місцезнаходженням ❤️</p>
+    <button class="btn btn-primary btn-large reveal-btn" id="btn-share">
+      <span class="btn-icon">📍</span> Поділитися
+    </button>
+    <p class="hint-text" id="geo-hint"></p>
+  </section>
+
+  <!-- ПЕРЕХІД — whoosh / спалах світла -->
+  <section class="screen screen-flash" id="screen-flash">
+    <div class="light-burst"></div>
+  </section>
+
+  <!-- ЕКРАН КАРТИ -->
+  <section class="screen screen-map" id="screen-map">
+    <div id="map"></div>
+    <div class="map-fade-overlay"></div>
+
+    <div class="distance-wrap" id="distance-wrap">
+      <div class="distance-number" id="distance-number">0</div>
+      <div class="distance-unit">км</div>
+      <p class="distance-caption">Саме стільки кілометрів зараз між нами</p>
+    </div>
+  </section>
+
+  <!-- ЕКРАН ПОСЛАННЯ -->
+  <section class="screen" id="screen-message">
+    <div class="msg-heart">❤️</div>
+    <p class="reveal-text msg-line" id="msg-1">Так...<br>Зараз між нами ще є відстань.<br>Але вона не зможе бути між нами вічно.</p>
+    <p class="reveal-text msg-line" id="msg-2">Кожен день наближає момент,<br>коли я зможу обійняти тебе.</p>
+    <p class="reveal-text msg-line" id="msg-3">І тоді між нами не залишиться жодного кілометра.</p>
+  </section>
+
+  <!-- ВЕЛИКЕ СЕРЦЕ -->
+  <section class="screen" id="screen-bigheart">
+    <div class="big-heart-wrap">
+      <svg class="heart-svg big-heart" id="big-heart" viewBox="0 0 100 90" width="150" height="135">
+        <path d="M50 85 C20 62, 2 42, 2 24 C2 8, 15 -2, 30 3 C40 6, 47 15, 50 22 C53 15, 60 6, 70 3 C85 -2, 98 8, 98 24 C98 42, 80 62, 50 85 Z"/>
+      </svg>
+      <div class="heart-particles" id="heart-particles"></div>
+    </div>
+  </section>
+
+  <!-- ФІНАЛЬНИЙ ЕКРАН -->
+  <section class="screen" id="screen-final">
+    <h1 class="final-title reveal-text">До скорої зустрічі ❤️</h1>
+    <p class="final-sub reveal-text">Я дуже чекаю моменту,<br>коли зможу бути поруч.</p>
+    <button class="btn btn-primary btn-pulse reveal-btn" id="btn-final">❤️ Натисни</button>
+  </section>
+
+  <!-- КОНВЕРТ / ЗАПИСКА -->
+  <section class="screen screen-envelope" id="screen-envelope">
+    <div class="envelope" id="envelope">
+      <div class="envelope-back"></div>
+      <div class="letter" id="letter">
+        <p>Я просто хотів нагадати,<br>що незалежно від відстані —<br>ти дуже важлива для мене.</p>
+        <p class="letter-signature">До скорої зустрічі ❤️</p>
+      </div>
+      <div class="envelope-flap"></div>
+    </div>
+  </section>
+
+</div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
