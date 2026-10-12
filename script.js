@@ -334,7 +334,7 @@ async function initAndAnimateMap(herLat, herLng) {
       fadeAnimation: true,
     });
 
-    L.tileLayer(
+   L.tileLayer(
   "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
   {
     maxZoom: 19,
