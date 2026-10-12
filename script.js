@@ -335,10 +335,11 @@ async function initAndAnimateMap(herLat, herLng) {
     });
 
     L.tileLayer(
-  "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+  "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
   {
     maxZoom: 19,
-    attribution: '&copy; OpenStreetMap &copy; Stadia Maps'
+    attribution: "© OpenStreetMap contributors",
+    className: "dark-map"
   }
 ).addTo(leafletMap);
   }
