@@ -335,13 +335,12 @@ async function initAndAnimateMap(herLat, herLng) {
     });
 
     L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-      {
-        subdomains: "abcd",
-        maxZoom: 19,
-        attribution: "",
-      }
-    ).addTo(leafletMap);
+  "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+  {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap &copy; Stadia Maps'
+  }
+).addTo(leafletMap);
   }
 
   const bounds = L.latLngBounds([myPoint, herPoint]);
