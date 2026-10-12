@@ -462,3 +462,6 @@ button{ font-family: inherit; }
   .reveal-text{ font-size: 19px; }
   .btn{ padding: 13px 26px; font-size: 15px; }
 }
+.dark-map {
+  filter: grayscale(1) invert(1) brightness(0.75) contrast(1.2);
+}
